@@ -14,4 +14,6 @@ public interface NoticiaRepository {
     Optional<Noticia> find(int id);
 
     void delete(int id);
+
+    Noticia insert(Noticia noticia);
 }

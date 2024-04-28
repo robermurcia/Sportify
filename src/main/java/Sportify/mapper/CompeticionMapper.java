@@ -34,6 +34,9 @@ public interface CompeticionMapper {
     @Mapping(target = "equipos", expression = "java(mapEquipoToEquipoListWeb(competicion.getEquipo()))")
     CompeticionDetailWeb toCompeticionDetailWeb (Competicion competicion);
 
+    @Mapping(target = "equipoEntity", source = "competicion.equipo")
+    CompeticionEntity toCompeticionEntity(Competicion competicion);
+
     @Named("EquipoEntityToEquipo")
     default List<Equipo> mapEquipoEntityToEquipo(List<EquipoEntity> equipoEntities) {
         return equipoEntities.stream()

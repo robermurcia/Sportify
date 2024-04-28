@@ -49,4 +49,11 @@ public class NoticiaRepositoryImpl implements NoticiaRepository {
     public void delete(int id) {
         noticiaDAO.deleteById(id);
     }
+
+    @Override
+    @Transactional
+    public Noticia insert(Noticia noticia) {
+        NoticiaEntity noticiaEntity = noticiaDAO.save(NoticiaMapper.mapper.toNoticiaEntity(noticia));
+        return NoticiaMapper.mapper.toNoticia(noticiaEntity);
+    }
 }

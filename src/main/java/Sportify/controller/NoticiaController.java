@@ -1,5 +1,6 @@
 package Sportify.controller;
 
+import Sportify.controller.model.noticia.NoticiaCreateWeb;
 import Sportify.controller.model.noticia.NoticiaDetailWeb;
 import Sportify.controller.model.noticia.NoticiaListWeb;
 import Sportify.domain.entity.Noticia;
@@ -63,5 +64,12 @@ public class NoticiaController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") int id) {
         noticiaService.delete(id);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("")
+    public Response create(@RequestBody NoticiaCreateWeb noticiaCreateWeb) {
+        Noticia noticia = noticiaService.create(NoticiaMapper.mapper.toNoticia(noticiaCreateWeb),noticiaCreateWeb.getCompeticionId());
+        return Response.builder().data(NoticiaMapper.mapper.toNoticiaDetailWeb(noticia)).build();
     }
 }

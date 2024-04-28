@@ -1,6 +1,8 @@
 package Sportify.domain.service.impl;
 
+import Sportify.domain.entity.Competicion;
 import Sportify.domain.entity.Noticia;
+import Sportify.domain.repository.CompeticionRepository;
 import Sportify.domain.repository.NoticiaRepository;
 import Sportify.domain.service.NoticiaService;
 import Sportify.exception.ResourceNotFoundException;
@@ -15,6 +17,9 @@ public class NoticiaServiceImpl implements NoticiaService {
 
     @Autowired
     private NoticiaRepository noticiaRepository;
+
+    @Autowired
+    private CompeticionRepository competicionRepository;
 
     @Override
     public List<Noticia> getAll(Integer page, Integer page_size) {
@@ -36,5 +41,13 @@ public class NoticiaServiceImpl implements NoticiaService {
         noticiaRepository.find(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Noticia no encontrada con id: " + id));
         noticiaRepository.delete(id);
+    }
+
+    @Override
+    public Noticia create(Noticia noticia, int competicionId) {
+        Competicion competicion = competicionRepository.find(competicionId)
+                .orElseThrow(() -> new ResourceNotFoundException("Competición no encontrada con id: " + competicionId));
+        noticia.setCompeticion(competicion);
+        return noticiaRepository.insert(noticia);
     }
 }

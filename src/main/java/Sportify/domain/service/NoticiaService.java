@@ -15,4 +15,6 @@ public interface NoticiaService {
     Optional<Noticia> find(int id);
 
     void delete(int id);
+
+    Noticia create(Noticia noticia, int competicionId);
 }

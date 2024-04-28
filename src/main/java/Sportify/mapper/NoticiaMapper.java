@@ -1,5 +1,6 @@
 package Sportify.mapper;
 
+import Sportify.controller.model.noticia.NoticiaCreateWeb;
 import Sportify.controller.model.noticia.NoticiaDetailWeb;
 import Sportify.controller.model.noticia.NoticiaListWeb;
 import Sportify.domain.entity.Noticia;
@@ -30,4 +31,11 @@ public interface NoticiaMapper {
 
     @Mapping(target = "competicion", expression = "java(CompeticionMapper.mapper.toCompeticionListWeb(noticia.getCompeticion()))")
     NoticiaDetailWeb toNoticiaDetailWeb(Noticia noticia);
+
+    @Mapping(target = "competicionEntity", expression = "java(CompeticionMapper.mapper.toCompeticionEntity(noticia.getCompeticion()))")
+    NoticiaEntity toNoticiaEntity(Noticia noticia);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "competicion", ignore = true)
+    Noticia toNoticia(NoticiaCreateWeb noticiaCreateWeb);
 }
