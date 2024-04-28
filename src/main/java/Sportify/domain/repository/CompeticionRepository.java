@@ -15,4 +15,10 @@ public interface CompeticionRepository {
     Optional<Competicion> find(int id);
 
     void delete(int id);
+
+    Competicion insert(Competicion competicion);
+
+    Competicion update(Competicion competicion);
+
+    Competicion updateEquipos(Competicion competicion);
 }

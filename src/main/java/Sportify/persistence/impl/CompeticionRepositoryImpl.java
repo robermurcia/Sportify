@@ -50,4 +50,25 @@ public class CompeticionRepositoryImpl implements CompeticionRepository {
     public void delete(int id) {
         competicionDAO.deleteById(id);
     }
+
+    @Override
+    @Transactional
+    public Competicion insert(Competicion competicion) {
+        CompeticionEntity competicionEntity = competicionDAO.save(CompeticionMapper.mapper.toCompeticionEntity(competicion));
+        return CompeticionMapper.mapper.toCompeticion(competicionEntity);
+    }
+
+    @Override
+    @Transactional
+    public Competicion update(Competicion competicion) {
+        CompeticionEntity competicionEntity = competicionDAO.save(CompeticionMapper.mapper.toCompeticionEntity(competicion));
+        return CompeticionMapper.mapper.toCompeticion(competicionEntity);
+    }
+
+    @Override
+    @Transactional
+    public Competicion updateEquipos(Competicion competicion) {
+        CompeticionEntity competicionEntity = competicionDAO.save(CompeticionMapper.mapper.toCompeticionEntity(competicion));
+        return CompeticionMapper.mapper.toCompeticion(competicionEntity);
+    }
 }

@@ -1,7 +1,9 @@
 package Sportify.controller;
 
+import Sportify.controller.model.competicion.CompeticionCreateWeb;
 import Sportify.controller.model.competicion.CompeticionDetailWeb;
 import Sportify.controller.model.competicion.CompeticionListWeb;
+import Sportify.controller.model.competicion.CompeticionUpdateWeb;
 import Sportify.domain.entity.Competicion;
 import Sportify.domain.service.CompeticionService;
 import Sportify.http_response.Response;
@@ -63,5 +65,19 @@ public class CompeticionController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") int id) {
         competicionService.delete(id);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("")
+    public Response create(@RequestBody CompeticionCreateWeb competicionCreateWeb) {
+        Competicion competicion = competicionService.create(CompeticionMapper.mapper.toCompeticion(competicionCreateWeb),competicionCreateWeb.getEquiposId());
+        return Response.builder().data(CompeticionMapper.mapper.toCompeticionDetailWeb(competicion)).build();
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/{id}")
+    public Response update(@PathVariable("id") int id, @RequestBody CompeticionUpdateWeb competicionUpdateWeb) {
+        Competicion competicion = competicionService.update(CompeticionMapper.mapper.toCompeticion(competicionUpdateWeb),id,competicionUpdateWeb.getEquiposId());
+        return Response.builder().data(CompeticionMapper.mapper.toCompeticionDetailWeb(competicion)).build();
     }
 }

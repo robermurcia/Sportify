@@ -1,5 +1,6 @@
 package Sportify.controller;
 
+import Sportify.controller.model.equipo.EquipoCreateWeb;
 import Sportify.controller.model.equipo.EquipoDetailWeb;
 import Sportify.controller.model.equipo.EquipoListWeb;
 import Sportify.domain.entity.Equipo;
@@ -63,5 +64,13 @@ public class EquipoController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") int id) {
         equipoService.delete(id);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("")
+    public Response create(@RequestBody EquipoCreateWeb equipoCreateWeb) {
+        List<Integer> competicionIds = equipoCreateWeb.getCompeticionIds();
+        Equipo equipo = equipoService.create(EquipoMapper.mapper.toEquipo(equipoCreateWeb), competicionIds);
+        return Response.builder().data(EquipoMapper.mapper.toEquipoDetailWeb(equipo)).build();
     }
 }

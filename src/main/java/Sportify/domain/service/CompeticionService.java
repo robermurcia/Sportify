@@ -15,4 +15,10 @@ public interface CompeticionService {
     Optional<Competicion> find(int id);
 
     void delete(int id);
+
+    Competicion create(Competicion competicion, List<Integer> equipoId);
+
+    Competicion update(Competicion competicion,int competicionId, List<Integer> equipoId);
+
+    Competicion updateEquipos(Competicion competicion);
 }

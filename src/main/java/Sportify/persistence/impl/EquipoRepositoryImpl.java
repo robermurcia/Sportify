@@ -51,4 +51,11 @@ public class EquipoRepositoryImpl implements EquipoRepository {
     public void delete(int id) {
         equipoDAO.deleteById(id);
     }
+
+    @Override
+    @Transactional
+    public Equipo insert(Equipo equipo) {
+        EquipoEntity equipoEntity = equipoDAO.save(EquipoMapper.mapper.toEquipoEntity(equipo));
+        return EquipoMapper.mapper.toEquipo(equipoEntity);
+    }
 }

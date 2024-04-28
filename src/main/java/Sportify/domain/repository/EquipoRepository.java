@@ -14,4 +14,6 @@ public interface EquipoRepository {
     Optional<Equipo> find(int id);
 
     void delete(int id);
+
+    Equipo insert(Equipo equipo);
 }

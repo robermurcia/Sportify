@@ -14,4 +14,6 @@ public interface EquipoService {
     Optional<Equipo> find(int id);
 
     void delete(int id);
+
+    Equipo create(Equipo equipo, List<Integer> competicionIds);
 }

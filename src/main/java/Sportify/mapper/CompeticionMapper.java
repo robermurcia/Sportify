@@ -1,7 +1,9 @@
 package Sportify.mapper;
 
+import Sportify.controller.model.competicion.CompeticionCreateWeb;
 import Sportify.controller.model.competicion.CompeticionDetailWeb;
 import Sportify.controller.model.competicion.CompeticionListWeb;
+import Sportify.controller.model.competicion.CompeticionUpdateWeb;
 import Sportify.controller.model.equipo.EquipoListWeb;
 import Sportify.domain.entity.Competicion;
 import Sportify.domain.entity.Equipo;
@@ -36,6 +38,12 @@ public interface CompeticionMapper {
 
     @Mapping(target = "equipoEntity", source = "competicion.equipo")
     CompeticionEntity toCompeticionEntity(Competicion competicion);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "equipo", ignore = true)
+    Competicion toCompeticion(CompeticionCreateWeb competicionCreateWeb);
+
+    Competicion toCompeticion(CompeticionUpdateWeb competicionUpdateWeb);
 
     @Named("EquipoEntityToEquipo")
     default List<Equipo> mapEquipoEntityToEquipo(List<EquipoEntity> equipoEntities) {
