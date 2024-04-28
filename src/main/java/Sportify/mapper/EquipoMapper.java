@@ -20,4 +20,6 @@ public interface EquipoMapper {
     EquipoListWeb toEquipoListWeb(Equipo equipo);
 
     EquipoDetailWeb toEquipoDetailWeb(Equipo equipo);
+
+    EquipoEntity toEquipoEntity(Equipo equipo);
 }

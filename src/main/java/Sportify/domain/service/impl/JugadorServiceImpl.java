@@ -1,6 +1,8 @@
 package Sportify.domain.service.impl;
 
+import Sportify.domain.entity.Equipo;
 import Sportify.domain.entity.Jugador;
+import Sportify.domain.repository.EquipoRepository;
 import Sportify.domain.repository.JugadorRepository;
 import Sportify.domain.service.JugadorService;
 import Sportify.exception.ResourceNotFoundException;
@@ -15,6 +17,9 @@ public class JugadorServiceImpl implements JugadorService {
 
     @Autowired
     private JugadorRepository jugadorRepository;
+
+    @Autowired
+    private EquipoRepository equipoRepository;
 
     @Override
     public List<Jugador> getAll(Integer page, Integer page_size) {
@@ -34,7 +39,24 @@ public class JugadorServiceImpl implements JugadorService {
     @Override
     public void delete(int id) {
         jugadorRepository.find(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Jugador no encontrada con id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Jugador no encontrado con id: " + id));
         jugadorRepository.delete(id);
+    }
+
+    @Override
+    public Jugador create(Jugador jugador, int equipoId) {
+        Equipo equipo = equipoRepository.find(equipoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Equipo no encontrado con id: " + equipoId));
+        jugador.setEquipo(equipo);
+        return jugadorRepository.insert(jugador);
+    }
+
+    @Override
+    public Jugador update(Jugador jugador,int jugadorId, int equipoId) {
+        jugador.setId(jugadorId);
+        Equipo equipo = equipoRepository.find(equipoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Equipo no encontrado con id: " + equipoId));
+        jugador.setEquipo(equipo);
+        return jugadorRepository.insert(jugador);
     }
 }

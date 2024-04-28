@@ -1,7 +1,9 @@
 package Sportify.controller;
 
+import Sportify.controller.model.jugador.JugadorCreateWeb;
 import Sportify.controller.model.jugador.JugadorDetailWeb;
 import Sportify.controller.model.jugador.JugadorListWeb;
+import Sportify.controller.model.jugador.JugadorUpdateWeb;
 import Sportify.domain.entity.Jugador;
 import Sportify.domain.service.JugadorService;
 import Sportify.http_response.Response;
@@ -62,5 +64,19 @@ public class JugadorController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") int id) {
         jugadorService.delete(id);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("")
+    public Response create(@RequestBody JugadorCreateWeb jugadorCreateWeb) {
+        Jugador jugador = jugadorService.create(JugadorMapper.mapper.toJugador(jugadorCreateWeb),jugadorCreateWeb.getEquipoId());
+        return Response.builder().data(JugadorMapper.mapper.toJugadorDetailWeb(jugador)).build();
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/{id}")
+    public Response update(@PathVariable("id") int id, @RequestBody JugadorUpdateWeb jugadorUpdateWeb) {
+        Jugador jugador = jugadorService.update(JugadorMapper.mapper.toJugador(jugadorUpdateWeb),id,jugadorUpdateWeb.getEquipoId());
+        return Response.builder().data(JugadorMapper.mapper.toJugadorDetailWeb(jugador)).build();
     }
 }

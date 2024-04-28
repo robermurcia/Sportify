@@ -50,4 +50,17 @@ public class JugadorRepositoryImpl implements JugadorRepository {
     public void delete(int id) {
         jugadorDAO.deleteById(id);
     }
+
+    @Override
+    @Transactional
+    public Jugador insert(Jugador jugador) {
+        JugadorEntity jugadorEntity = jugadorDAO.save(JugadorMapper.mapper.toJugadorEntity(jugador));
+        return JugadorMapper.mapper.toJugador(jugadorEntity);
+    }
+
+    @Override
+    public Jugador update(Jugador jugador) {
+        JugadorEntity jugadorEntity = jugadorDAO.save(JugadorMapper.mapper.toJugadorEntity(jugador));
+        return JugadorMapper.mapper.toJugador(jugadorEntity);
+    }
 }

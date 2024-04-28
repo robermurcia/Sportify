@@ -14,4 +14,8 @@ public interface JugadorRepository {
     Optional<Jugador> find(int id);
 
     void delete(int id);
+
+    Jugador insert(Jugador jugador);
+
+    Jugador update(Jugador jugador);
 }
