@@ -50,4 +50,9 @@ public class NoticiaServiceImpl implements NoticiaService {
         noticia.setCompeticion(competicion);
         return noticiaRepository.insert(noticia);
     }
+
+    @Override
+    public List<Noticia> findByCompeticionId(int competicionId) {
+        return noticiaRepository.findByCompeticionId(competicionId);
+    }
 }

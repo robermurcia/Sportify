@@ -17,4 +17,6 @@ public interface NoticiaService {
     void delete(int id);
 
     Noticia create(Noticia noticia, int competicionId);
+
+    List<Noticia> findByCompeticionId(int competicionId);
 }

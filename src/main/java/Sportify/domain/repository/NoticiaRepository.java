@@ -16,4 +16,6 @@ public interface NoticiaRepository {
     void delete(int id);
 
     Noticia insert(Noticia noticia);
+
+    List<Noticia> findByCompeticionId(int competicionId);
 }

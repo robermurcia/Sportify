@@ -5,7 +5,9 @@ import Sportify.controller.model.competicion.CompeticionDetailWeb;
 import Sportify.controller.model.competicion.CompeticionListWeb;
 import Sportify.controller.model.competicion.CompeticionUpdateWeb;
 import Sportify.domain.entity.Competicion;
+import Sportify.domain.entity.Noticia;
 import Sportify.domain.service.CompeticionService;
+import Sportify.domain.service.NoticiaService;
 import Sportify.http_response.Response;
 import Sportify.mapper.CompeticionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class CompeticionController {
 
     @Autowired
     private CompeticionService competicionService;
+
+    @Autowired
+    private NoticiaService noticiaService;
 
     public static final String COMPETICIONES ="/weblibreria/competiciones";
 
@@ -79,5 +84,14 @@ public class CompeticionController {
     public Response update(@PathVariable("id") int id, @RequestBody CompeticionUpdateWeb competicionUpdateWeb) {
         Competicion competicion = competicionService.update(CompeticionMapper.mapper.toCompeticion(competicionUpdateWeb),id,competicionUpdateWeb.getEquiposId());
         return Response.builder().data(CompeticionMapper.mapper.toCompeticionDetailWeb(competicion)).build();
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/{competicionId}/noticias")
+    public Response findNoticiasByCompeticionId(@PathVariable int competicionId) {
+        List<Noticia> noticias = noticiaService.findByCompeticionId(competicionId);
+        return Response.builder()
+                .data(noticias)
+                .build();
     }
 }

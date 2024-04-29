@@ -56,4 +56,13 @@ public class NoticiaRepositoryImpl implements NoticiaRepository {
         NoticiaEntity noticiaEntity = noticiaDAO.save(NoticiaMapper.mapper.toNoticiaEntity(noticia));
         return NoticiaMapper.mapper.toNoticia(noticiaEntity);
     }
+
+    @Override
+    public List<Noticia> findByCompeticionId(int competicionId) {
+        List<NoticiaEntity> allNoticias = noticiaDAO.findAll();
+        List<NoticiaEntity> noticiasByCompeticion = allNoticias.stream()
+                .filter(noticia -> noticia.getCompeticionEntity() != null && noticia.getCompeticionEntity().getId() == competicionId)
+                .toList();
+        return NoticiaMapper.mapper.toNoticiaList(noticiasByCompeticion);
+    }
 }
