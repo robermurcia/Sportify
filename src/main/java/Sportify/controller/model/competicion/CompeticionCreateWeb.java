@@ -1,6 +1,5 @@
 package Sportify.controller.model.competicion;
 
-import Sportify.controller.model.equipo.EquipoListWeb;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
